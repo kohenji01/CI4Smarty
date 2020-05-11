@@ -1,7 +1,8 @@
 {
-  "name": "SarahSystems/CI4Smarty",
+  "name": "sarah-systems/ci4smarty",
   "description": "Smarty for CodeIgniter4",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "license": "MIT",
   "authors": [
     {
@@ -10,13 +11,16 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.2"
+  },
+  "require-dev": {
     "codeigniter4/framework": "^4.0.3",
     "smarty/smarty": "^3.1.36"
+
   },
   "autoload": {
     "psr-4": {
-      "SarahSystems\\CI4Smarty\\": "src"
+      "CI4Smarty\\": "src"
     }
   }
 }

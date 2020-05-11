@@ -9,7 +9,7 @@
  *  This software is released under the MIT License, see LICENSE.txt.
  * =============================================================================================
  */
-namespace SarahSystems\CI4Smarty\ThirdParty;
+namespace CI4Smarty\ThirdParty;
 
 use Smarty;
 

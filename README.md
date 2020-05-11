@@ -26,7 +26,17 @@ CI4Smarty.ConfigDir = /path/to/ConfigDir
 ```
 
 # Usage
-CI4のview関数はSmarty用にオーバーライドされています。
+
+### view()
+CI4のview関数をSmarty用にオーバーライド可能です。
+
+`app`ディレクトリ直下の`Common.php`に次を追記してください。
+
+```php
+require_once ROOTPATH . "vendor/sarah-systems/ci4smarty/src/Common.php";
+```
+
+使用法はCI4のview関数と同じです。
 
 ```php
 view('template.tpl');
@@ -45,14 +55,17 @@ $data = [ 'apple' , 'banana' , 'lemon' ];
 view('template',$data);
 ```
 
+Smartyのtemplate上では
 ```smarty
 {$CI.0} <-- appleが表示されます。
 ```
 
+### Service
+
 CI4のServiceが利用可能です。
 
 ```php
-use SarahSystems\CI4Smarty\Config\Services;
+use CI4Smarty\Config\Services;
 
 $time = date('Y-m-d H:i:s');
 $smarty = Services::smarty();

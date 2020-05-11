@@ -1,8 +1,8 @@
 <?php
-namespace SarahSystems\CI4Smarty\Config;
+namespace CI4Smarty\Config;
 
+use CI4Smarty\ThirdParty\CiSmarty;
 use CodeIgniter\Config\Services as CoreServices;
-use SarahSystems\CI4Smarty\ThirdParty\CiSmarty;
 
 /**
  * Services Configuration file.
@@ -19,20 +19,10 @@ use SarahSystems\CI4Smarty\ThirdParty\CiSmarty;
  */
 class Services extends CoreServices
 {
-
-	//    public static function example($getShared = true)
-	//    {
-	//        if ($getShared)
-	//        {
-	//            return static::getSharedInstance('example');
-	//        }
-	//
-	//        return new \CodeIgniter\Example();
-	//    }
-    
-    public static function smarty( $getShared = true ){
-        if( $getShared ){
-            return static::getSharedInstance( 'smarty' );
+    public static function smarty($getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('smarty');
         }
         return new CiSmarty();
     }

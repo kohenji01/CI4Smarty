@@ -13,7 +13,7 @@
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
 
-use SarahSystems\CI4Smarty\Config\Services;
+use CI4Smarty\Config\Services;
 
 /**
  * Grabs the current RendererInterface-compatible class
