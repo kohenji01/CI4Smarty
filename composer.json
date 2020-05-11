@@ -1,0 +1,22 @@
+{
+  "name": "SarahSystems/CI4Smarty",
+  "description": "Smarty for CodeIgniter4",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Shoji Ogura",
+      "email": "kohenji@sarahsystems.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "codeigniter4/framework": "^4.0.3",
+    "smarty/smarty": "^3.1.36"
+  },
+  "autoload": {
+    "psr-4": {
+      "SarahSystems\\CI4Smarty\\": "src"
+    }
+  }
+}
