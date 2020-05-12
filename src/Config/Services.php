@@ -1,4 +1,15 @@
 <?php
+/**
+ * =============================================================================================
+ *  Project: CI4Smarty
+ *  File: Services.php
+ *  Date: 2020/05/12 11:30
+ *  Author: kohenji
+ *  Copyright (c) 2020. SarahSystems lpc.
+ *  This software is released under the MIT License, see LICENSE.txt.
+ * =============================================================================================
+ */
+
 namespace CI4Smarty\Config;
 
 use CI4Smarty\ThirdParty\CiSmarty;

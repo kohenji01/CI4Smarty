@@ -16,14 +16,6 @@
 use CI4Smarty\Config\Services;
 
 /**
- * Grabs the current RendererInterface-compatible class
- * and tells it to render the specified view. Simply provides
- * a convenience method that can be used in Controllers,
- * libraries, and routed closures.
- *
- * NOTE: Does not provide any escaping of the data, so that must
- * all be handled manually by the developer.
- *
  * @param string $name
  * @param mixed $data
  * @param array $options Unused - reserved for third-party extensions.

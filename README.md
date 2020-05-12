@@ -2,10 +2,17 @@
 
 CodeIgniter4用のSmarty組み込みです。
 
-
 # Install
 
-デフォルトでは、次のようなパスで動作します。
+Composerで導入可能です。CI4やSmartyも予めComposerでインストールしておいてください。
+
+```bash
+$ composer require sarah-systems/ci4smarty
+```
+
+# Usage
+
+デフォルトでは、Smarty関連のパスは自体は次のような設定で動作するようになっています。
 
 | 種類         | パス                        |
 |:-------------|:----------------------------|
@@ -14,7 +21,8 @@ CodeIgniter4用のSmarty組み込みです。
 | キャッシュ   | writable/smarty/cache       |
 | コンフィグ   | writable/smarty/config      |
 
-これらのディレクトリを作って適切なパーミッションを与えることで動作します。
+`writable`が正しく書き込み可能な場合、下の3つのディレクトリは自動的に生成されます。
+もしエラーが起きた場合は、これらのディレクトリを作って適切なパーミッションを与えることで動作します。
 
 もしこのパスを変更したい場合は`.env`ファイルに次のパラメータをセットすることで、任意のパスに変更可能です。
 
@@ -25,7 +33,6 @@ CI4Smarty.CacheDir = /path/to/CacheDir
 CI4Smarty.ConfigDir = /path/to/ConfigDir
 ```
 
-# Usage
 
 ### view()
 CI4のview関数をSmarty用にオーバーライド可能です。
@@ -60,6 +67,8 @@ Smartyのtemplate上では
 {$CI.0} <-- appleが表示されます。
 ```
 
+第3引数の$optionsは無視されます。
+
 ### Service
 
 CI4のServiceが利用可能です。
@@ -72,3 +81,6 @@ $smarty = Services::smarty();
 $smarty->assign('time',$time);
 $smarty->display('template.tpl');
 ```
+
+# License
+The source code is licensed MIT. The website content is licensed CC BY 4.0,see LICENSE.
