@@ -23,16 +23,20 @@ use CI4Smarty\Config\Services;
  * @return string
  * @throws Exception
  */
-function view( string $name , $data = [] , array $options = [] ):string{
-    try{
-        $smarty = Services::smarty();
-        unset( $options ); // 互換性のため維持。不要なのでunset
-        if( substr( $name , 0 , -4 ) != '.tpl' ){
-            $name .= '.tpl';
+if (!function_exists('view') && boolval($_ENV['CI4Smarty.UseViewFunc'] ?? true) === true) {
+    function view(string $name, $data = [], array $options = []): string
+    {
+        try {
+            $ext = $_ENV['CI4Smarty.DefaultTemplateExtension'] ?? '.tpl';
+            $smarty = Services::smarty();
+            unset($options); // 互換性のため維持。不要なのでunset
+            if (substr($name, 0, -strlen($ext)) != $ext) {
+                $name .= $ext;
+            }
+            $smarty->assign('CI', $data);
+        } catch (Exception $e) {
+            throw $e;
         }
-        $smarty->assign( 'CI' , $data );
-    }catch( Exception $e ){
-        throw $e;
+        return $smarty->fetch($name);
     }
-    return $smarty->fetch( $name );
 }
