@@ -23,7 +23,7 @@ use CI4Smarty\Config\Services;
  * @return string
  * @throws Exception
  */
-if (!function_exists('view') && boolval($_ENV['CI4Smarty.UseViewFunc'] ?? true) === true) {
+if (!function_exists('view') && boolval($_ENV['CI4Smarty.UseViewFunction'] ?? true) === true) {
     function view(string $name, $data = [], array $options = []): string
     {
         try {
