@@ -13,7 +13,11 @@
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
 
+namespace CI4Smarty;
+
 use CI4Smarty\Config\Services;
+use Exception;
+
 
 /**
  * @param string $name
@@ -23,20 +27,18 @@ use CI4Smarty\Config\Services;
  * @return string
  * @throws Exception
  */
-if (!function_exists('view') && boolval($_ENV['CI4Smarty.UseViewFunction'] ?? true) === true) {
-    function view(string $name, $data = [], array $options = []): string
-    {
-        try {
-            $ext = $_ENV['CI4Smarty.DefaultTemplateExtension'] ?? '.tpl';
-            $smarty = Services::smarty();
-            unset($options); // 互換性のため維持。不要なのでunset
-            if (substr($name, 0, -strlen($ext)) != $ext) {
-                $name .= $ext;
-            }
-            $smarty->assign('CI', $data);
-        } catch (Exception $e) {
-            throw $e;
+function view(string $name, $data = [], array $options = []): string
+{
+    try {
+        $ext = $_ENV['CI4Smarty.DefaultTemplateExtension'] ?? '.tpl';
+        $smarty = Services::smarty();
+        unset($options); // 互換性のため維持。不要なのでunset
+        if (substr($name, 0, -strlen($ext)) != $ext) {
+            $name .= $ext;
         }
-        return $smarty->fetch($name);
+        $smarty->assign('CI', $data);
+    } catch (Exception $e) {
+        throw $e;
     }
+    return $smarty->fetch($name);
 }

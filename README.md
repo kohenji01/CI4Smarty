@@ -33,31 +33,35 @@ CI4Smarty.CacheDir = /path/to/CacheDir
 CI4Smarty.ConfigDir = /path/to/ConfigDir
 ```
 
-これ以外にも`.env`では、SmartyのDebugフラグのOn/Offとデフォルトのテンプレート拡張子、CI4のSmarty用のview()関数の利用のOn/Offを設定できます。
+これ以外にも`.env`では、SmartyのDebugフラグのOn/Offとデフォルトのテンプレート拡張子を設定できます。
 
 ```bash
-CI4Smarty.Debug = [ true or false ]
-CI4Smarty.UseViewFunction = [ true or false ]
+CI4Smarty.Debug = 1 または 0
 CI4Smarty.DefaultTemplateExtension = .tpl
 ```
 
 ### view()
-CI4のview関数をSmarty用にオーバーライド可能です。
+CI4のview関数をSmarty用にCI4Smartyというnamespaceで定義しています。
 
-`app`ディレクトリ直下の`Common.php`に次を追記してください。
+利用する際は`app`ディレクトリ直下の`Common.php`に次を追記してください。
 
 ```php
 require_once ROOTPATH . "vendor/sarah-systems/ci4smarty/src/Common.php";
 ```
 
-デフォルトでSmarty用のview()関数が有効になります。
-`.env`の`CI4Smarty.UseViewFunction`をfalseにすると、Smarty用のview関数が無効になり、CI4自身のview関数が有効になります。
-
-使用法はCI4のview関数と同じです。
+使用法はCI4のview関数と同じですが、関数の利用時には名前空間を指定するか、事前にエイリアスを張ってください。
 
 ```php
+\CI4Smarty\view('template.tpl');
+```
+
+または
+
+```php
+use function CI4Smarty\view as view;
 view('template.tpl');
 ```
+
 
 拡張子`.tpl`（`CI4Smarty.DefaultTemplateExtension`で設定されたものです。無指定の場合は`.tpl`）は省略可能です。
 
