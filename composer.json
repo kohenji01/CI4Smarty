@@ -13,12 +13,12 @@
   "require": {
     "php": ">=7.2",
     "codeigniter4/framework": "^4",
-    "smarty/smarty": "^3"
+    "smarty/smarty": ">=3.0.0"
   },
   "require-dev": {
     "php": ">=7.2",
     "codeigniter4/framework": "^4",
-    "smarty/smarty": "^3"
+    "smarty/smarty": ">=3.0.0"
 
   },
   "autoload": {
