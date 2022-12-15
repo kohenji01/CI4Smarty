@@ -29,10 +29,11 @@ class CiSmarty extends Smarty
         
         $this->setTemplateDir  ( $_ENV['CI4Smarty.TemplateDir']    ?? $this->TemplateDir )
             ->setCompileDir    ( $_ENV['CI4Smarty.CompileDir']     ?? $this->CompileDir )
-            ->setLeftDelimiter ( $_ENV['CI4Smarty.LeftDelimiter']  ?? $this->LeftDelimiter )
-            ->setRightDelimiter( $_ENV['CI4Smarty.RightDelimiter'] ?? $this->RightDelimiter )
             ->setCacheDir      ( $_ENV['CI4Smarty.CacheDir']       ?? $this->CacheDir )
             ->setConfigDir     ( $_ENV['CI4Smarty.ConfigDir']      ?? $this->ConfigDir )
             ->setDebugging     ( boolval($_ENV['CI4Smarty.Debug']  ?? false) );
+
+        $this->setLeftDelimiter ( $_ENV['CI4Smarty.LeftDelimiter']  ?? $this->LeftDelimiter );
+        $this->setRightDelimiter( $_ENV['CI4Smarty.RightDelimiter'] ?? $this->RightDelimiter );
     }
 }
