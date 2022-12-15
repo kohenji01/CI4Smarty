@@ -29,6 +29,8 @@ $ composer require sarah-systems/ci4smarty
 ```bash
 CI4Smarty.TemplateDir = /path/to/TemplateDir
 CI4Smarty.CompileDir = /path/to/CompileDir
+CI4Smarty.LeftDelimiter = {{
+CI4Smarty.RightDelimiter = }}
 CI4Smarty.CacheDir = /path/to/CacheDir
 CI4Smarty.ConfigDir = /path/to/ConfigDir
 ```
