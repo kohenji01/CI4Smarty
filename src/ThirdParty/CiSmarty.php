@@ -12,7 +12,7 @@
 
 namespace CI4Smarty\ThirdParty;
 
-use Smarty;
+use Smarty\Smarty;
 
 class CiSmarty extends Smarty
 {
