@@ -1,5 +1,7 @@
 # Smarty for CodeIgniter4
 
+日本語 | [English](README.en.md)
+
 CodeIgniter4用のSmarty組み込みです。
 
 # Install
@@ -126,7 +128,7 @@ echo \CI4Smarty\view('article', ['title' => 'お知らせ'], [
 
 ### 0.1.x からの移行
 
-GitHub と Packagist で 0.2.0 が公開されたら、CI4 アプリのルートで Composer の依存条件を更新します。
+CI4 アプリのルートで Composer の依存条件を更新します。
 
 ```bash
 composer require sarah-systems/ci4smarty:^0.2 --with-all-dependencies

@@ -1,5 +1,11 @@
 # 変更履歴
 
+日本語 | [English](CHANGELOG.en.md)
+
+## 0.2.1
+
+- 英語版 README と変更履歴を追加しました。
+
 ## 0.2.0
 
 - Smarty 5.9 以降の 5 系に対応。Smarty 3／4 から更新する場合は、テンプレートと独自プラグインを確認してください。[Smarty の移行ガイド](https://smarty-php.github.io/smarty/5.x/upgrading/)
