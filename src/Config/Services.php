@@ -12,6 +12,7 @@
 
 namespace CI4Smarty\Config;
 
+use CI4Smarty\SmartyRenderer;
 use CI4Smarty\ThirdParty\CiSmarty;
 use CodeIgniter\Config\Services as CoreServices;
 
@@ -37,5 +38,13 @@ class Services extends CoreServices
         }
         return new CiSmarty();
     }
-    
+
+    public static function smartyRenderer($getShared = true): SmartyRenderer
+    {
+        if ($getShared) {
+            return static::getSharedInstance('smartyRenderer');
+        }
+
+        return new SmartyRenderer();
+    }
 }

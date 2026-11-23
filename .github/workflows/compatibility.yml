@@ -1,0 +1,42 @@
+name: Compatibility
+
+on: [push, pull_request]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { php: '7.2', ci4: '4.0.0', smarty: '5.9.0' }
+          - { php: '7.3', ci4: '4.0.*', smarty: '5.*' }
+          - { php: '7.3', ci4: '4.1.*', smarty: '5.*' }
+          - { php: '7.4', ci4: '4.2.*', smarty: '5.*' }
+          - { php: '8.0', ci4: '4.3.*', smarty: '5.*' }
+          - { php: '8.1', ci4: '4.5.*', smarty: '5.*' }
+          - { php: '8.2', ci4: '4.7.*', smarty: '5.*' }
+          - { php: '8.3', ci4: '4.4.*', smarty: '5.*' }
+          - { php: '8.4', ci4: '4.6.*', smarty: '5.*' }
+          - { php: '8.5', ci4: '4.7.*', smarty: '5.*' }
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, intl, mbstring
+          tools: composer:v2
+          coverage: none
+      - run: composer validate --strict
+      - name: Install the test combination
+        # Compatibility checks intentionally install historic releases.
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: '1'
+          CI4_VERSION: ${{ matrix.ci4 }}
+          SMARTY_VERSION: ${{ matrix.smarty }}
+        run: |
+          composer update --no-interaction --prefer-dist --with="codeigniter4/framework:$CI4_VERSION" --with="smarty/smarty:$SMARTY_VERSION"
+          composer show codeigniter4/framework
+          composer show smarty/smarty
+      - run: php tests/integration.php
