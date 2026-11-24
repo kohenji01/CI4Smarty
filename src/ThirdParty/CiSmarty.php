@@ -12,6 +12,7 @@
 
 namespace CI4Smarty\ThirdParty;
 
+use CI4Smarty\Config\Smarty as SmartyConfig;
 use Smarty\Smarty;
 
 class CiSmarty extends Smarty
@@ -26,14 +27,16 @@ class CiSmarty extends Smarty
     public function __construct()
     {
         parent::__construct();
-        
-        $this->setTemplateDir  ( $_ENV['CI4Smarty.TemplateDir']    ?? $this->TemplateDir )
-            ->setCompileDir    ( $_ENV['CI4Smarty.CompileDir']     ?? $this->CompileDir )
-            ->setCacheDir      ( $_ENV['CI4Smarty.CacheDir']       ?? $this->CacheDir )
-            ->setConfigDir     ( $_ENV['CI4Smarty.ConfigDir']      ?? $this->ConfigDir )
-            ->setDebugging     ( filter_var($_ENV['CI4Smarty.Debug'] ?? false, FILTER_VALIDATE_BOOLEAN) );
 
-        $this->setLeftDelimiter ( $_ENV['CI4Smarty.LeftDelimiter']  ?? $this->LeftDelimiter );
-        $this->setRightDelimiter( $_ENV['CI4Smarty.RightDelimiter'] ?? $this->RightDelimiter );
+        $config = SmartyConfig::application();
+
+        $this->setTemplateDir($_ENV['CI4Smarty.TemplateDir'] ?? $config->templateDir ?? $this->TemplateDir)
+            ->setCompileDir($_ENV['CI4Smarty.CompileDir'] ?? $config->compileDir ?? $this->CompileDir)
+            ->setCacheDir($_ENV['CI4Smarty.CacheDir'] ?? $config->cacheDir ?? $this->CacheDir)
+            ->setConfigDir($_ENV['CI4Smarty.ConfigDir'] ?? $config->configDir ?? $this->ConfigDir);
+
+        $this->setDebugging(filter_var($_ENV['CI4Smarty.Debug'] ?? $config->debug ?? false, FILTER_VALIDATE_BOOLEAN));
+        $this->setLeftDelimiter($_ENV['CI4Smarty.LeftDelimiter'] ?? $config->leftDelimiter ?? $this->LeftDelimiter);
+        $this->setRightDelimiter($_ENV['CI4Smarty.RightDelimiter'] ?? $config->rightDelimiter ?? $this->RightDelimiter);
     }
 }

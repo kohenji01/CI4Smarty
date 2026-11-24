@@ -61,11 +61,39 @@ CI4Smarty.DefaultTemplateExtension = .tpl
 
 The two delimiter settings above show how to switch to `{{` and `}}`. Smarty uses `{` and `}` by default.
 
+### Application configuration
+
+Create `app/Config/Smarty.php` to manage Smarty settings through CodeIgniter.
+
+```php
+<?php
+
+namespace Config;
+
+class Smarty extends \CI4Smarty\Config\Smarty
+{
+    public $templateDir = [APPPATH . 'Views', APPPATH . 'SharedViews'];
+    public $defaultTemplateExtension = '.tpl';
+}
+```
+
+CI4Smarty searches multiple template directories in the order listed. You can also set `compileDir`, `cacheDir`, `configDir`, `leftDelimiter`, `rightDelimiter`, and `debug`. Existing `CI4Smarty.*` environment variables take precedence over the application configuration, followed by package defaults.
+
 ## Render views
 
 Call `\CI4Smarty\view()` directly or import it with `use function CI4Smarty\view;`. Use `\view()` when calling CodeIgniter's built-in PHP view helper from the same file.
 
 The default extension is `.tpl`, so `\CI4Smarty\view('hello')` and `\CI4Smarty\view('hello.tpl')` render the same template with the default settings. The template receives the second argument as `$CI`. For example, an array with a `name` key is available as `{$CI.name}`.
+
+### Module templates
+
+For example, if `Vendor\Blog` is registered with the CodeIgniter autoloader, render its article template like this.
+
+```php
+return \CI4Smarty\view('module:Vendor\Blog\article', ['title' => 'News']);
+```
+
+CI4Smarty looks for `app/Views/overrides/Vendor/Blog/article.tpl` first, then `Views/article.tpl` in the registered module. You can omit the configured extension. Use Smarty's relative paths inside the template, such as `{include file="./parts.tpl"}` or `{extends file="./layout.tpl"}`. Relative paths in an application override resolve from the override's directory.
 
 ### View options
 
@@ -88,6 +116,38 @@ echo \CI4Smarty\view('article', ['title' => 'News'], [
 Configure the HTML cache backend in CodeIgniter, usually in `app/Config/Cache.php`. `CI4Smarty.CacheDir` sets Smarty's own cache directory.
 
 Use distinct `cache_name` values when a template produces different public content by language or other context. Leave `cache` unset for user-specific pages or forms containing a CSRF token.
+
+### Clear an individual view cache entry
+
+After updating content, you can remove the affected HTML cache entry. If you supplied `cache_name` when rendering, pass the same value when clearing the entry.
+
+```php
+// After updating the English version of article 42.
+\CI4Smarty\clear_view_cache('article', 'article-42-en');
+
+// Remove an entry rendered without a custom cache_name.
+\CI4Smarty\clear_view_cache('article');
+```
+
+On the next request that uses the cleared key, CI4Smarty renders the template and stores the HTML again. The return value reports the result from the CodeIgniter cache handler.
+
+| Stored content | Setting or location | Affected by this API |
+| :--- | :--- | :--- |
+| HTML cached by the `view()` option `cache` | CodeIgniter's cache service, usually configured in `app/Config/Cache.php` | The specified HTML entry |
+| Smarty's own output cache, when enabled | `CI4Smarty.CacheDir` | No |
+| Smarty's compiled templates | `CI4Smarty.CompileDir`, which defaults to `writable/smarty/templates_c` | No |
+
+When both output caches are enabled, the next render after clearing the CodeIgniter entry can still reuse HTML cached by Smarty. If this API manages your public pages' cached output, using the CodeIgniter output cache alone makes it easier to verify when edits become visible.
+
+### Debug Toolbar timeline
+
+To show Smarty rendering times, add this entry to the `$collectors` array in your application's `app/Config/Toolbar.php`.
+
+```php
+\CI4Smarty\Debug\Toolbar\Collectors\SmartyViews::class,
+```
+
+With CI4 debugging enabled, the timeline shows each Smarty template name and its elapsed time. Entries served from CodeIgniter's HTML cache are marked `(cache hit)`. Calls with `debug => false` are omitted from the timeline. You can use the Smarty collector alongside the standard Views collector.
 
 ### Use the Smarty service directly
 

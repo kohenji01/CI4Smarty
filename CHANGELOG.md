@@ -2,6 +2,12 @@
 
 日本語 | [English](CHANGELOG.en.md)
 
+## 0.3.0
+
+- `clear_view_cache()` で、CI4 に保存したビューの HTML キャッシュを個別に削除できるようにしました。
+- `Config\Smarty` によるアプリ設定と `module:` によるモジュールテンプレート探索を追加しました。
+- Smarty の描画時間とキャッシュヒットを表示する Debug Toolbar 用コレクターを追加しました。
+
 ## 0.2.1
 
 - 英語版 README と変更履歴を追加しました。

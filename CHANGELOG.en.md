@@ -2,6 +2,12 @@
 
 [日本語](CHANGELOG.md) | English
 
+## 0.3.0
+
+- Added `clear_view_cache()` to remove individual HTML cache entries from CodeIgniter's cache.
+- Added application settings via `Config\Smarty` and module template lookup via `module:`.
+- Added a Debug Toolbar collector that shows Smarty rendering times and cache hits.
+
 ## 0.2.1
 
 - Added an English README and changelog.

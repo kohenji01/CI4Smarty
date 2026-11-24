@@ -14,3 +14,11 @@ function view(string $name, $data = [], array $options = []): string
 {
     return Services::smartyRenderer()->render($name, $data, $options);
 }
+
+/**
+ * Delete a single CI4Smarty HTML cache entry.
+ */
+function clear_view_cache(string $name, ?string $cacheName = null): bool
+{
+    return Services::smartyRenderer()->clearCache($name, $cacheName);
+}
